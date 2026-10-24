@@ -1,0 +1,28 @@
+{
+  "name": "bluebank",
+  "private": true,
+  "packageManager": "pnpm@12.15.0",
+  "engines": {
+    "node": ">=24.22.1 <25"
+  },
+  "scripts": {
+    "prepare": "node .husky/install.mjs",
+    "commitlint": "commitlint",
+    "dev": "turbo run dev --env-mode=strict",
+    "dev:web": "turbo run dev --filter=@bluebank/web",
+    "dev:admin": "turbo run dev --filter=@bluebank/admin",
+    "dev:api": "turbo run dev --filter=@bluebank/api",
+    "build": "turbo run build --env-mode=strict",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "21.2.4",
+    "@commitlint/config-conventional": "21.2.4",
+    "husky": "9.1.7",
+    "prettier": "3.9.10",
+    "turbo": "2.11.10"
+  }
+}
