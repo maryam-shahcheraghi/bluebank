@@ -24,9 +24,9 @@ A monorepo supports the required unified developer workflow and makes coordinate
 
 This fits the project's current scope: three related applications with common tooling. It avoids introducing cross-repository package publishing and version coordination for the existing shared configuration packages.
 
-### Solution
+### Initial Solution
 
-The existing implementation uses pnpm workspaces for package linking and dependency installation, with Turborepo coordinating development, builds, linting, and type checking.
+The initial implementation used pnpm workspaces for package linking and dependency installation, with Turborepo coordinating development, builds, linting, and type checking.
 
 - `apps/web` contains the Next.js application.
 - `apps/admin` contains the Vite/React application.
@@ -36,6 +36,12 @@ The existing implementation uses pnpm workspaces for package linking and depende
 - Root scripts provide the common workflow, including `pnpm dev` to start all applications. Workspace filters support running an individual application or task.
 
 The applications remain separate deployment units: Next.js produces a standalone Node server, Vite produces static assets, and NestJS produces compiled Node application code.
+
+### Implementation Update: 2026-10-25
+
+The monorepo decision remains accepted. At the user's request, TypeScript and ESLint configuration now lives within each application, together with its tooling dependencies. The original shared configuration packages have been removed, and pnpm workspace membership now includes only `apps/*`.
+
+This gives each application direct ownership of its configuration and removes cross-package configuration inheritance. The trade-off is duplicated configuration and the effort needed to keep common settings aligned when desired. Root-level repository tooling still coordinates installation, development, and validation.
 
 ### Alternatives Considered
 

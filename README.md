@@ -58,8 +58,8 @@ Run these from the repository root:
 
 - `pnpm dev`: run all three development servers.
 - `pnpm dev:web`, `pnpm dev:admin`, `pnpm dev:api`: run one application.
-- `pnpm build`: build all applications and required workspace dependencies.
-- `pnpm lint`: independently lint applications and shared executable configuration.
+- `pnpm build`: build all three applications.
+- `pnpm lint`: independently lint each application using its own configuration.
 - `pnpm typecheck`: independently check application and Vite configuration types; Next route types are generated first.
 - `pnpm format`: format source, configuration, and documentation.
 - `pnpm format:check`: check formatting without modifying files.
@@ -72,17 +72,17 @@ For other filtered tasks, use `pnpm exec turbo run build --filter=@bluebank/web`
 
 On Windows, Next standalone output can contain absolute directory junctions. In this setup, Turbo 2.11.10 reports `provided value is too long when setting link name` when archiving that output, so the web build succeeds but its build cache is not saved. Admin/API build caching and lint/typecheck caching work. Do not depend on web build-cache reuse on affected Windows hosts; deployment builds should run on their target platform.
 
-## Packages
+## Applications and configuration
 
 ```text
-apps/web                    Next.js App Router; React; standalone Node output
-apps/admin                  Vite and React; static dist output
-apps/api                    NestJS with Express; compiled Node ESM output
-packages/typescript-config  Strict base and framework-specific TypeScript presets
-packages/eslint-config      Shared ESLint flat configuration building blocks
+apps/web    Next.js App Router; React; standalone Node output
+apps/admin  Vite and React; static dist output
+apps/api    NestJS with Express; compiled Node ESM output
 ```
 
-Applications own their framework dependencies. Shared configurations use `workspace:*` links and require no compilation. Next and Vite resolve `@/*` to each application's `src` directory. API code uses relative `.js` import specifiers so emitted ESM runs directly in Node without an alias loader. Browser TypeScript uses bundler resolution; Nest uses NodeNext resolution with decorator metadata.
+Each application owns its TypeScript and ESLint configuration and the dependencies those configurations import. The pnpm workspace includes only `apps/*`; there is no separate shared configuration package directory. Configuration inheritance is local to an application, such as Nest's build configuration extending its own TypeScript configuration.
+
+Next and Vite resolve `@/*` to each application's `src` directory. API code uses relative `.js` import specifiers so emitted ESM runs directly in Node without an alias loader. Browser TypeScript uses bundler resolution; Nest uses NodeNext resolution with decorator metadata. Repository-wide orchestration, formatting, and commit tooling remain at the root. pnpm's workspace settings enforce the declared Node.js engine requirements.
 
 ## Production execution
 
