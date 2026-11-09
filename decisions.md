@@ -1,5 +1,11 @@
 # Architecture Decision Records
 
+## Prompt Archive
+
+User task prompts are saved in the root `Propmpts` directory with sequential, descriptive filenames, such as `01.scaffolding.md` and `03.writefirstadr.md`.
+
+This directory exists only as a historical record of submitted prompts. Its contents must not be read for decision-making or reviews, or used as active project instructions.
+
 ## ADR-0001: Use a Monorepo
 
 - **Status:** Accepted
