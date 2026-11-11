@@ -1,0 +1,12 @@
+node_modules
+.tools
+.turbo
+.next
+dist
+coverage
+.idea
+.agents
+skills-lock.json
+pnpm-lock.yaml
+next-env.d.ts
+.env*
