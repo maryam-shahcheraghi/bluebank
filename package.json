@@ -12,6 +12,7 @@
     "dev:web": "turbo run dev --filter=@bluebank/web",
     "dev:admin": "turbo run dev --filter=@bluebank/admin",
     "dev:api": "turbo run dev --filter=@bluebank/api",
+    "start:api": "turbo run start:prod --filter=@bluebank/api",
     "build": "turbo run build --env-mode=strict",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",

@@ -22,3 +22,5 @@ strictDepBuilds: true
 # Native import resolver used by ESLint's TypeScript import resolution.
 allowBuilds:
   unrs-resolver@1.12.2: true
+  # Verify the native compiler binding used by the Nest CLI SWC builder.
+  '@swc/core@1.16.22': true
